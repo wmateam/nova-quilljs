@@ -51,7 +51,7 @@ class FieldServiceProvider extends ServiceProvider
 
         Route::middleware(['nova'])
                 ->prefix('nova-vendor/quilljs')
-                ->namespace('Ek0519\Quilljs\Http\Controllers')
+                ->namespace('Wmateam\NovaQuilljs\Http\Controllers')
                 ->group(__DIR__.'/../routes/api.php');
     }
 

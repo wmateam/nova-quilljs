@@ -1,6 +1,6 @@
 <?php
 
-namespace Ek0519\Quilljs;
+namespace Wmateam\NovaQuilljs;
 
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
