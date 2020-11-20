@@ -6,6 +6,7 @@
         "nova"
     ],
     "license": "MIT",
+    "version": "0.2.3",
     "require": {
         "php": ">=7.1.0"
     },
