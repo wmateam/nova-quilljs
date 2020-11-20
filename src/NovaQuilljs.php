@@ -5,7 +5,7 @@ namespace Wmateam\NovaQuilljs;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Quilljs extends Trix
+class NovaQuilljs extends Trix
 {
     /**
      * The field's component.
