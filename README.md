@@ -1,12 +1,16 @@
 # Laravel Nova Quilljs editor Field
 
+# Note
+
+Note This package has been forked from [ek0519/nova-quilljs](https://github.com/ek0519/nova-quilljs) and contains some features about uploading image from clipboard.
+
 A Laravel Nova implementation of the [Quill editor for Vue.js](https://github.com/surmon-china/vue-quill-editor)
 
-[![Latest Stable Version](https://poser.pugx.org/ek0519/quilljs/v/stable)](https://packagist.org/packages/ek0519/quilljs)
-[![Total Downloads](https://poser.pugx.org/ek0519/quilljs/downloads)](https://packagist.org/packages/ek0519/quilljs)
-[![License](https://poser.pugx.org/ek0519/quilljs/license)](https://packagist.org/packages/ek0519/quilljs)
-[![Monthly Downloads](https://poser.pugx.org/ek0519/quilljs/d/monthly)](https://packagist.org/packages/ek0519/quilljs)
-[![Daily Downloads](https://poser.pugx.org/ek0519/quilljs/d/daily)](https://packagist.org/packages/ek0519/quilljs)
+[![Latest Stable Version](https://poser.pugx.org/wmateam/nova-quilljs/v/stable)](https://packagist.org/packages/wmateam/nova-quilljs)
+[![Total Downloads](https://poser.pugx.org/wmateam/nova-quilljs/downloads)](https://packagist.org/packages/wmateam/nova-quilljs)
+[![License](https://poser.pugx.org/wmateam/nova-quilljs/license)](https://packagist.org/packages/wmateam/nova-quilljs)
+[![Monthly Downloads](https://poser.pugx.org/wmateam/nova-quilljs/d/monthly)](https://packagist.org/packages/wmateam/nova-quilljs)
+[![Daily Downloads](https://poser.pugx.org/wmateam/nova-quilljs/d/daily)](https://packagist.org/packages/wmateam/nova-quilljs)
 ## What's new (20200708)?
 
 Thanks for [Gabrijel Gavranović](https://github.com/gavro)'s PR, add file upload max size **setting**.
@@ -15,8 +19,8 @@ Thanks for [Gabrijel Gavranović](https://github.com/gavro)'s PR, add file uploa
 ## Installation
 
 Install via composer
-```
-composer require ek0519/quilljs
+```sh
+composer require wmateam/nova-quilljs
 ```
 
 ## Modify quill's height and width
@@ -26,10 +30,10 @@ Boolean
 
 ### **height(value)**
 Number (unit px)
-```
-use Ek0519\Quilljs\Quilljs;
+```php
+use Wmateam\NovaQuilljs\NovaQuilljs;
 
-Quilljs::make('content')
+NovaQuilljs::make('content')
         ->withFiles('public')
         ->fullWidth(false) (option, default full-width)
         ->height(500) (option, default 300px)
@@ -45,10 +49,10 @@ I add this module https://github.com/Fandom-OSS/quill-blot-formatter , thanks fo
 ### **maxFileSize(size)**  
 size : Number, default 2(MB)  
 **example**
-```
-use Ek0519\Quilljs\Quilljs;
+```php
+use Wmateam\NovaQuilljs\NovaQuilljs;
 
-Quilljs::make('content')
+NovaQuilljs::make('content')
         ->withFiles('public')
         ->maxFileSize(3)
         ->rules('required'),
@@ -60,17 +64,17 @@ This Nova field provides native attachments driver which works similar to [Trix 
 
 To use this attachments driver, publish and run the migration(also publish quilljs config to set [toolbar](https://quilljs.com/docs/modules/toolbar/)):
 
-```
-php artisan vendor:publish --provider="Ek0519\Quilljs\FieldServiceProvider"
+```sh
+php artisan vendor:publish --provider="Wmateam\NovaQuilljs\FieldServiceProvider"
 php artisan migrate
 ```
 
 Then, allow users to upload images, just like with Trix field, chaining the withFiles method onto the field's definition. When calling this method, you should pass the name of the filesystem disk that images should be stored on(in this example, we use **public**, please use this command `php artisan storage:link` ):
 
-```
-use Ek0519\Quilljs\Quilljs;
+```php
+use Wmateam\NovaQuilljs\NovaQuilljs;
 
-Quilljs::make('content')
+NovaQuilljs::make('content')
         ->withFiles('public')
         ->placeholder('please enter here')
         ->rules('required'),
@@ -83,8 +87,8 @@ Quilljs::make('content')
 
 In default, tooltip was disabled, if you want to use, in **Resource** add **->tooltip(true)**
 
-```php=
-Quilljs::make(__('Content'), 'content')
+```php
+NovaQuilljs::make(__('Content'), 'content')
                 ->withFiles('public')
                 ->tooltip(true)
 ```
@@ -93,7 +97,7 @@ Quilljs::make(__('Content'), 'content')
 
 You can use favorite description of tooltip.
 
-```php=
+```php
 <?php
 
 return [
@@ -142,7 +146,7 @@ return [
 
 If you want to change toolbar's setting, you can change quilljs.php in config folder, referrence quilljs's web site https://quilljs.com/docs/modules/toolbar
 
-```php=
+```php
 return [
     ["bold", "italic", "underline", "strike"],
     ["blockquote", "code-block"],
