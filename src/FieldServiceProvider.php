@@ -1,6 +1,6 @@
 <?php
 
-namespace Ek0519\Quilljs;
+namespace Wmateam\NovaQuilljs;
 
 use Laravel\Nova\Nova;
 use Laravel\Nova\Events\ServingNova;
@@ -51,7 +51,7 @@ class FieldServiceProvider extends ServiceProvider
 
         Route::middleware(['nova'])
                 ->prefix('nova-vendor/quilljs')
-                ->namespace('Ek0519\Quilljs\Http\Controllers')
+                ->namespace('Wmateam\NovaQuilljs\Http\Controllers')
                 ->group(__DIR__.'/../routes/api.php');
     }
 

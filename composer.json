@@ -1,23 +1,24 @@
 {
-    "name": "ek0519/quilljs",
-    "description": "A Laravel Nova field.",
+    "name": "wmateam/nova-quilljs",
+    "description": "Quilljs field for Laravel Nova. + upload pasted image",
     "keywords": [
         "laravel",
         "nova"
     ],
     "license": "MIT",
+    "version": "0.2.3",
     "require": {
         "php": ">=7.1.0"
     },
     "autoload": {
         "psr-4": {
-            "Ek0519\\Quilljs\\": "src/"
+            "Wmateam\\NovaQuilljs\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Ek0519\\Quilljs\\FieldServiceProvider"
+                "Wmateam\\NovaQuilljs\\FieldServiceProvider"
             ]
         }
     },

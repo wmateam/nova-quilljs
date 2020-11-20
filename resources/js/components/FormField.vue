@@ -1,5 +1,9 @@
 <template>
-  <default-field :field="field" :errors="errors" :full-width-content="field.width">
+  <default-field
+    :field="field"
+    :errors="errors"
+    :full-width-content="field.width"
+  >
     <template slot="field">
       <quill-editor
         :style="css"
@@ -18,7 +22,8 @@
 import { FormField, HandlesValidationErrors } from "laravel-nova";
 import { quillEditor, Quill } from "vue-quill-editor";
 import BlotFormatter from "quill-blot-formatter";
-import { ImageExtend, QuillWatch } from "quill-image-extend-module";
+// import { ImageExtend, QuillWatch } from "quill-image-extend-module";
+import { ImageExtend, QuillWatch } from '../ImageExtendWithPaste'
 import { VideoBlot } from "../../quilljs/VideoBlot";
 import Tooltip from "quill/ui/tooltip";
 import { CustomImageSpec } from "../../quilljs/CustomImageSpec";
@@ -26,17 +31,18 @@ import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
 
+
 Quill.register({
   "modules/ImageExtend": ImageExtend,
   "modules/blotFormatter": BlotFormatter,
   "ui/tooltip": Tooltip,
-  "formats/video": VideoBlot
+  "formats/video": VideoBlot,
 });
 
 export default {
   mixins: [FormField, HandlesValidationErrors],
   components: {
-    quillEditor
+    quillEditor,
   },
   props: ["resourceName", "resourceId", "field"],
   data() {
@@ -47,17 +53,17 @@ export default {
         modules: {
           // ...
           blotFormatter: {
-            specs: [CustomImageSpec]
+            specs: [CustomImageSpec],
           },
           ImageExtend: {
             loading: true,
             size: this.field.maxFileSize ? this.field.maxFileSize : 2,
             name: "attachment",
             action: `/nova-vendor/quilljs/${this.resourceName}/upload/${this.field.attribute}`,
-            response: res => {
+            response: (res) => {
               return res.url;
             },
-            headers: xhr => {
+            headers: (xhr) => {
               xhr.setRequestHeader(
                 "X-CSRF-TOKEN",
                 document.head.querySelector('meta[name="csrf-token"]').content
@@ -73,7 +79,7 @@ export default {
             },
             change: (xhr, formData) => {
               formData.append("draftId", this._uuid());
-            }
+            },
           },
 
           toolbar: {
@@ -84,11 +90,11 @@ export default {
               },
               video(value) {
                 this.quill.theme.tooltip.edit("video");
-              }
-            }
-          }
-        }
-      }
+              },
+            },
+          },
+        },
+      },
     };
   },
   methods: {
@@ -100,7 +106,7 @@ export default {
       ) {
         d += performance.now(); //use high-precision timer if available
       }
-      return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(
+      return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (
         c
       ) {
         var r = (d + Math.random() * 16) % 16 | 0;
@@ -141,7 +147,16 @@ export default {
     onEditorChange({ quill, html, text }) {
       // console.log("editor change!", quill, html, text);
       this.content = html;
-    }
+    },
+    urltoFile(url, filename, mimeType) {
+      return fetch(url)
+        .then(function (res) {
+          return res.arrayBuffer();
+        })
+        .then(function (buf) {
+          return new File([buf], filename, { type: mimeType });
+        });
+    },
   },
   computed: {
     editor() {
@@ -149,10 +164,10 @@ export default {
     },
     css() {
       return {
-        height: this.field.height + 41 + "px",
-        "padding-bottom": "40px"
+        height: this.field.height + 300 + "px",
+        "padding-bottom": "40px",
       };
-    }
+    },
   },
   mounted() {
     autotip: {
@@ -164,7 +179,7 @@ export default {
         }
       }
     }
-  }
+  },
 };
 </script>
 
